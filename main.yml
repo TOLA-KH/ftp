@@ -1,0 +1,18 @@
+on: push
+Name: Deploy website on push
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Latest code
+      users: actions/checkout@v3
+
+    - name: Sync files
+      users: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: localhost
+        username: ${{secrets.FTPUSERNAME}}
+        password: ${{secrets.FTPPASSWORD}}
+        protocol: ftps
+        server-dir: public_html/test-push-ftp/
